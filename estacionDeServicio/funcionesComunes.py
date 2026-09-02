@@ -1,9 +1,9 @@
 
-def seleccionarDeLista(lista, titulo, pregunta = "Elija una opción..."):
+def seleccionarDeLista(lista, titulo, pregunta = "Elija una opción...", caracterTitulo = "-"  ):
     print()
-    print("-" * len(titulo))
+    print(caracterTitulo * len(titulo))
     print(f"{titulo}")
-    print("-" * len(titulo))
+    print(caracterTitulo * len(titulo))
     print()
     listaValidacion = []
     for i in range(len(lista)):
