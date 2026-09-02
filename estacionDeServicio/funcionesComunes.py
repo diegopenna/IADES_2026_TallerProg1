@@ -1,5 +1,5 @@
 
-def seleccionarDeLista(lista, titulo):
+def seleccionarDeLista(lista, titulo, pregunta = "Elija una opción..."):
     print()
     print("-" * len(titulo))
     print(f"{titulo}")
@@ -11,7 +11,7 @@ def seleccionarDeLista(lista, titulo):
         listaValidacion.append(str(i+1))
 
     while True:
-        opc = input("Elia una opción..")
+        opc = input(pregunta)
         if not(opc in listaValidacion):
             print("Opción Incorrecta, vuelva a intentarlo.")
         else:
