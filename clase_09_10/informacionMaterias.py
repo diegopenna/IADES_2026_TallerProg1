@@ -22,27 +22,46 @@ def calcularPromedioMateria(codigo):
     return calcularPromedio(notasMateria)
 
 def calcularPromedio(lista):
-    promedio = sum(lista) / len(lista)
-    return promedio
+    try:
+        promedio = sum(lista) / len(lista)
+        return promedio
+    except ZeroDivisionError:
+        return 0.0
+    except Exception:
+        return "Error desconocido"
 
 def mostrarInformeMateria(codigo):
-    nombreMateria = obtenerNombreMateria(codigo)
-    notasMateria = obtenerNotasMateria(codigo)
-    promedioMateria = calcularPromedioMateria(codigo)
+    try:
+        nombreMateria = obtenerNombreMateria(codigo)
+        notasMateria = obtenerNotasMateria(codigo)
+        promedioMateria = calcularPromedioMateria(codigo)
 
-    print(f"Infrome de la materia: {nombreMateria}")
-    print(f"Notas: {notasMateria}")
-    print(f"Promedio: {promedioMateria}")
+        print(f"Informe de la materia: {nombreMateria}")
+        print(f"Notas: {notasMateria}")
+        print(f"Promedio: {promedioMateria}")
+    except IndexError:
+        print("No existe materia con ese código")
+
+
 
 def main():
-    codigo = int(input("Ingrese codigo de materia: "))
-    mostrarInformeMateria(codigo)
+    try:
+        codigo = input("Ingrese codigo de materia: ")
+        codigo = int(codigo)
+    except ValueError:
+        print(f"El codigo de la materia no puede ser {codigo}. Tiene que ser numerico")
+    else:
+        if codigo < 1:
+            print("El codigo debe ser mayor a 0")
+        else:     
+            mostrarInformeMateria(codigo)
 
 try:
     main()
-except ValueError:
-    print("Debe igresar un numero")
-except IndexError:
-    print("Codigo inexistente")
-except ZeroDivisionError:
-    print("No hay notas para la materia")
+except Exception:
+    #Guardo en una base el log del error
+    #Enviar mail a los administradores
+    print("Se produjo un error inesperado. Comuniquese con sistemas.")
+
+#print(calcularPromedio([]))
+
