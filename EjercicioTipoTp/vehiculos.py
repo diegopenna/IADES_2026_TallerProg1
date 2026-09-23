@@ -34,18 +34,22 @@ def menuPrincipal():
 def altaVehiculo():
 
     u.mostrarTitulo("Alta de Vehiculo")
-    print("Datos del Vehiculo:")
-    unapatente = u.solicitarPatente("Patente: ")
-    unadescripcion = input("Decripcion: ")
-    unacapacidad = u.solicitarDecimal("Capacidad (kg): ")
-    unacategoria = input("Categoria: ")
-    estadisponible = input("Disponible (s,n): ")
+    print("Datos del Vehiculo (vacío para cancelar):")
+    try:
+        unapatente = u.solicitarPatente("Patente: ", False)
+        unadescripcion = u.solicitarTexto("Descripción: ")
+        unacapacidad = u.solicitarDecimal("Capacidad (kg): ")
+        unacategoria = u.solicitarDeLista("Categoria: ", listacategorias)
+        estadisponible = u.solicitarDeLista("Disponible: ", ["Si", "No"])
 
-    patentes.append(unapatente)
-    descripciones.append(unadescripcion)
-    capacidades.append(unacapacidad)
-    categorias.append(unacategoria)
-    disponibles.append(estadisponible)
+        patentes.append(unapatente)
+        descripciones.append(unadescripcion)
+        capacidades.append(unacapacidad)
+        categorias.append(unacategoria)
+        disponibles.append(estadisponible)
+
+    except u.CanceladoPorUsuario:
+        print("Operacion cancelada")
 
 def mostrarListaVehiculos():
     for i in range(len(patentes)):
