@@ -85,3 +85,9 @@ def mostrarTitulo(titulo):
     print(titulo)
     print("-"*len(titulo))
     print()
+
+def buscarEnLista(lista, valor):
+    for i in range(len(lista)):
+        if (str(valor).lower() == str(lista[i]).lower()):
+            return i
+    return -1
