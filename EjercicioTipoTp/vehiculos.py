@@ -1,12 +1,14 @@
 import utilidades as u
+import datosiniciales
 
-patentes = []
-descripciones = []
-capacidades = []
-categorias = []
-disponibles = []
+patentes = datosiniciales.patentes
+descripciones = datosiniciales.descripciones
+capacidades = datosiniciales.capacidades
+categorias = datosiniciales.categorias
+disponibles = datosiniciales.disponibles
 
-listacategorias = ["Auto", "Camion", "Camioneta", "Moto"]
+listacategorias = datosiniciales.listacategorias
+
 
 def menuPrincipal():
     while True:
@@ -25,7 +27,7 @@ def menuPrincipal():
         elif opc == "3":
             eliminarVehiculo()
         elif opc == "4":
-            print("Consulta de vehiculo")
+            consultarVehiculo()
         elif opc == "5":
             mostrarListaVehiculos()
         else:
@@ -59,11 +61,7 @@ def altaVehiculo():
 def modificarVehiculo():
     u.mostrarTitulo("Modificar Vehiculo")
     try:
-        unaPatente = u.solicitarPatente("Patente a modificar: ")
-        ipatente = buscarPatente(unaPatente) 
-        if ipatente == -1:
-            print("No existe una patente con ese numero.")
-            return
+        ipatente = solicitarPatenteExistente("Patente a modificar: ")
 
         unadescripcion = descripciones[ipatente]
         unacapacidad = capacidades[ipatente]
@@ -109,13 +107,8 @@ def modificarVehiculo():
 def eliminarVehiculo():
     u.mostrarTitulo("Eliminar Vehiculo")
     try:
-        unaPatente = u.solicitarPatente("Patente a elimiar: ")
-        ipatente = buscarPatente(unaPatente) 
-        if ipatente == -1:
-            print("No existe una patente con ese numero.")
-            return
-        else:
-            print("Patente encontrada")
+
+        ipatente = solicitarPatenteExistente("Patente a elimiar: ")
         
         opc = u.solicitarDeLista("Confirmar operacion de Eliminacion: ", ["Si", "No"], permiteCancelar=False)
         if (opc == "Si"):
@@ -132,15 +125,48 @@ def eliminarVehiculo():
         print("Operacion cancelada")
 
 
+def consultarVehiculo():
+    try:
+        ipatente = solicitarPatenteExistente()
+        mostrarDatosVehiculo(ipatente)
+    except u.CanceladoPorUsuario:
+        print("Operacion cancelada")
+
+def mostrarDatosVehiculo(indiceVehiculo):
+    u.mostrarTitulo("Datos de Vehiculo")
+    print(f"Patente: {patentes[indiceVehiculo]}")
+    print(f"Descripción: {descripciones[indiceVehiculo]}")
+    print(f"Canpacidad: {capacidades[indiceVehiculo]}")
+    print(f"Categoria: {categorias[indiceVehiculo]}")
+    print(f"Disponible: {disponibles[indiceVehiculo]}")
+    print("*"*50)
+    print()
+
 def buscarPatente(patente):
     return u.buscarEnLista(patentes, patente)
 
 def mostrarListaVehiculos():
+    u.mostrarTitulo("Listado de  Vehiculos")
+
+    if (len(patentes) == 0):
+        print("No hay vehiculos cargados")
+        return
+    
+    print(f"Patente | {'Descripcion':20} | {"Capacidad":15} | {"Categoria":15} | {"Disponible":10} ")
+    print("-"*80)
     for i in range(len(patentes)):
-        print("Patente: ", patentes[i])
-        print("Descripcion: ", descripciones[i])
-        print("Capacidad: ", capacidades[i])
-        print("Categoria: ", categorias[i])
-        print("Disponible: ", disponibles[i])
+        print(f"{patentes[i]:7} | {descripciones[i]:20} | {capacidades[i]:15,.2f} | {categorias[i]:^15} | {disponibles[i]:10}")
+
+def solicitarPatenteExistente(mensaje = "Ingrese una patente:"):
+        while True:
+            unaPatente = u.solicitarPatente(mensaje)
+            ipatente = buscarPatente(unaPatente) 
+            if ipatente == -1:
+                print("No existe una patente con ese numero.")
+            else:
+                print("Patente encontrada")
+                return ipatente
+    
+
 
 menuPrincipal()
