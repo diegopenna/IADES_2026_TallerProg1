@@ -1,9 +1,10 @@
 class Libro:
-    codigo: int
-    titulo: str
-    autor: str
-    anio: int
-    disponible: bool
+    def __init__(self):
+        self.codigo:int = 0
+        self.titulo:str = ""
+        self.autor:str = ""
+        self.anio:int = 0
+        self.disponible: bool = False
 
     def mostrarLibro(self):
         print("Libro:",self.codigo, "-",  self.titulo)
