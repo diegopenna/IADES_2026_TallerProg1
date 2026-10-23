@@ -9,7 +9,7 @@ class Producto:
         self.stock = stock
 
     def __str__(self):
-        return (f"Producto: {self.codigo} - {self.descripcion} ({self.categoria}) . Precio: {self.precio}")
+        return (f"Producto: {self.codigo} - {self.descripcion} ({self.categoria}) . Precio: {self.precio}. Stock: {self.stock}")
 
     def mostrar(self):
         mostrarTitulo("Destalle de Producto")

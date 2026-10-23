@@ -7,7 +7,7 @@ while True:
     opc = mostrarMenu(["Alta de producto",
                 "Modificación de producto",
                 "Baja de producto",
-                "Consulta de producto",
+                "Consulta de productos",
                 "Lista de precios",
                 "Productos por categoría",
                 "Productos con bajo stock",
